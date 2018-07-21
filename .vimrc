@@ -4,7 +4,8 @@
 "Use Vim settings, rather then Vi settings (much better!).
 "This must be first, because it changes other options as a side effect.
 set nocompatible
-let g:mapleader="\<Space>"
+"let g:mapleader="\<Space>"
+let g:mapleader=";"
 
 " source ~/.vimrc.before if it exists.
 if filereadable(expand("~/.vimrc.before"))
@@ -43,15 +44,16 @@ vnoremap ? ?\v
 set ignorecase              " Ignore case when searching
 set smartcase               " Don't ignore case if we have a capital letter
 
-nmap <leader><space> :nohlsearch<cr>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""
-" File format
+" Code
 """"""""""""""""""
-set fileencodings=utf-8,gbk,gb2312
+set encoding=utf-8
+set langmenu=zh_CN.UTF-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 
+set fileencoding=utf-8
 set ffs=unix,dos
 filetype on
 filetype plugin on
@@ -116,15 +118,7 @@ set list                    " Make whitespace characters visible
 set splitbelow              " Open new splits below
 set splitright              " Open new vertical splits to the right
 
-" Function to trim trailing white space
-" Make your own mappings
-function! StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-
+" Syntax and color
 syntax on
 syntax enable               " This has to come after colorcolumn in order to draw it.
 set t_Co=256                " enable 256 colors
@@ -136,7 +130,8 @@ if has("gui_running")
     set guioptions-=L
     set guifont=Monospace\ 13 
     "set guifont=Monospace\ Bold\ 13 
-    color gruvbox
+    "color gruvbox
+    color molokai
 endif
 
 "autocmd WinEnter * set cursorline
@@ -149,6 +144,57 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom mappings 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set nohlsearch
+nnoremap <leader><space> :nohlsearch<cr>
+
+" cd to the current file's directory
+nnoremap <leader>. :cd %:p:h<CR>:pwd<CR>
+
+" Edit
+nnoremap <leader>w :w<CR>
+
+" change buffer
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bw :bw<CR>
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
+
+""""""""""""""""""
+" move window
+""""""""""""""""""
+" Move current window to the far left using full height
+nmap <silent> <Leader>h <C-w>H
+" Move current window to the far right using full height
+nmap <silent> <Leader>l <C-w>L
+" Move current window to the top using full width
+nmap <silent> <Leader>k <C-w>K
+" Move current window to the bottom using full width
+nmap <silent> <Leader>j <C-w>J
+
+""""""""""""""""""
+" move to window
+""""""""""""""""""
+nmap <silent> <C-h> <C-w>h
+nmap <silent> <C-l> <C-w>l
+nmap <silent> <C-k> <C-w>k
+nmap <silent> <C-j> <C-w>j
+
+"""""""""""""""""
+" move 
+""""""""""""""""""
+" command mode paste
+cnoremap <C-v> <C-r>+
+
+" normal mode copy and paste
+nnoremap <C-c> "+y
+nnoremap <C-v> "+p
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim script programing
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set  pythondll=/usr/lib64/libpython2.7.so
+set  pythonthreedll=/usr/lib64/libpython3.so
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " backup and undo
@@ -173,5 +219,6 @@ map <silent><leader>sv :source ~/.vimrc<cr>
 map <silent><leader>ev :edit   ~/.vimrc<cr>
 
 autocmd! BufWritePost .vimrc source ~/.vimrc
+autocmd! BufWritePost pluglist.vim source ~/.vimrc
 
 let g:vimrc_loaded=1
