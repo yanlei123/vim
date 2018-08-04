@@ -144,8 +144,9 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom mappings 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set nohlsearch
+" search
 nnoremap <leader><space> :nohlsearch<cr>
+nnoremap <leader>f       :FZF<cr>
 
 " cd to the current file's directory
 nnoremap <leader>. :cd %:p:h<CR>:pwd<CR>

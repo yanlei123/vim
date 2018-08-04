@@ -25,9 +25,10 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
+Plug 'Asheq/close-buffers.vim'
+
 " Search
 Plug 'Yggdroot/LeaderF'
-Plug 'dyng/ctrlsf.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -37,6 +38,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+
+" Async
+Plug 'skywind3000/asyncrun.vim'
 
 filetype plugin indent on    " required!
 call plug#end()
@@ -95,4 +99,21 @@ command! -bang -nargs=* Rg
 
 nnoremap <C-p>a :Rg 
 nnoremap <leader>g :Rg <C-r><C-w><CR>
+
+" An action can be a reference to a funtion that processes selected lines
+function! s:build_qflist(lines)
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+    copen
+    cc
+endfunction
+
+let g:fzf_action = {
+    \ 'ctrl-q': function('s:build_qflist'),
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vsplit'}
+
+" Enable per-command history
+let g:fzf_history_dir = '~/.fzf_history'
+
 
