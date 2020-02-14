@@ -49,6 +49,20 @@ call plug#end()
 " Plug configure
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""
+" nerdtree
+"""""""""""""""""""""
+nnoremap <silent><F9> :NERDTreeToggle<cr>
+
+"""""""""""""""""""""
+" taglist
+"""""""""""""""""""""
+let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+let Tlist_Show_One_File = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_Right_Window =1 
+"let Tlist_WinWidth = 10
+nmap <silent> <leader>tl :Tlist<cr>
+"""""""""""""""""""""
 " vim-gntentags
 """""""""""""""""""""
 set tags=./tags;,tags
@@ -78,6 +92,7 @@ let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_python_binary_path = 'python'
 let g:ycm_autoclose_preview_window_after_completion=1
+
 """""""""""""""""""""
 " Grep
 """""""""""""""""""""
@@ -85,6 +100,12 @@ if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
+
+"""""""""""""""""""""
+" Easy aglin 
+"""""""""""""""""""""
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga      <Plug>(EasyAlign)
 
 """""""""""""""""""""
 " Fzf
@@ -115,5 +136,12 @@ let g:fzf_action = {
 
 " Enable per-command history
 let g:fzf_history_dir = '~/.fzf_history'
+
+"""""""""""""""""""""
+" asyncrun
+"""""""""""""""""""""
+let g:asyncrun_exit = "copen"
+let g:asyncrun_open = 6
+let g:asyncrun_bell = 1
 
 

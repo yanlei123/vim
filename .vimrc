@@ -92,7 +92,7 @@ set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set showcmd                 " Show (partial) command in the last line of the screen.
 set wildmenu                " Command completion
-set wildmode=list:longest   " List all matches and complete till longest common string
+set wildmode=longest:list,full " List all matches and complete till longest common string
 set laststatus=2            " The last window will have a status line always
 set noshowmode              " Don't show the mode in the last line of the screen, vim-airline takes care of it
 set ruler                   " Show the line and column number of the cursor position, separated by a comma.
@@ -146,21 +146,23 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " search
 nnoremap <leader><space> :nohlsearch<cr>
-nnoremap <leader>f       :FZF<cr>
+" nnoremap <leader>f       :FZF<cr>
+nnoremap <leader>g       :AsyncRun rg -n -i <c-r><c-w><cr>
 
 " cd to the current file's directory
-nnoremap <leader>. :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>. :cd %:p:h<cr>:pwd<cr>
 
 " Edit
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :w<cr>
 
 " change buffer
-nnoremap <leader>bn :bn<CR>
-nnoremap <leader>bp :bp<CR>
-nnoremap <leader>bw :bw<CR>
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
+nnoremap <leader>bn :bn<cr>
+nnoremap <leader>bp :bp<cr>
+nnoremap <leader>bw :bw<cr>
+nnoremap <C-n> :bn<cr>
+nnoremap <C-p> :bp<cr>
 
+nnoremap <F7>  :Tags<c-r><c-w><cr>
 """"""""""""""""""
 " move window
 """"""""""""""""""
